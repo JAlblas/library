@@ -33,13 +33,18 @@ function displayBooks() {
         const header = document.createElement('h5');
         header.classList.add('card-title');
         header.textContent = book.title;
+        innerContent.appendChild(header);
 
         const paragraph = document.createElement('p');
         paragraph.classList.add('card-text');
         paragraph.textContent = book.info();
-
-        innerContent.appendChild(header);
         innerContent.appendChild(paragraph);
+
+        const button = document.createElement('button');
+        button.classList.add('btn');
+        button.classList.add('btn-light');
+        button.innerText = "Delete Book";
+        innerContent.appendChild(button);
 
         content.appendChild(innerContent);
         bookListDiv.appendChild(content);
@@ -49,13 +54,13 @@ function displayBooks() {
 let book1 = new Book("Game of Thrones", "G.R.R.Martin", 942, true);
 addBookToLibrary(book1);
 
-let book2 = new Book("Game of Thrones", "G.R.R.Martin", 942, true);
+let book2 = new Book("The Lord of the Rings", "J.R.R. Tolkien", 741, false);
 addBookToLibrary(book2);
 
-let book3 = new Book("Game of Thrones", "G.R.R.Martin", 942, true);
+let book3 = new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling", 476, false);
 addBookToLibrary(book3);
 
-let book4 = new Book("Game of Thrones", "G.R.R.Martin", 942, true);
+let book4 = new Book("The adventures of Pinocchio", "Carlo Collodi", 355, true);
 addBookToLibrary(book4);
 
 displayBooks();
