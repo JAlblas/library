@@ -1,0 +1,11 @@
+body {
+    background-color: #17a2b8;
+}
+
+#container {
+    width: 1280px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 25px;
+    background-color: #f8f9fa;
+}
