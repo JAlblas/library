@@ -20,8 +20,14 @@ body {
     min-height: 225;
 }
 
-.card-body > button {
+.card-body > .delete-button {
     position: absolute;
     right: 15;
+    bottom: 15;
+}
+
+.card-body > .toggle-button {
+    position: absolute;
+    left: 15;
     bottom: 15;
 }

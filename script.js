@@ -60,9 +60,24 @@ function displayBooks() {
             displayBooks();    
         });        
 
-
         button.innerText = "Delete Book";
         innerContent.appendChild(button);
+
+        const toggleButton = document.createElement('button');
+        toggleButton.classList.add('btn');
+        toggleButton.classList.add('btn-light');
+        toggleButton.classList.add('toggle-button');
+
+        toggleButton.dataset.indexNumber = myLibrary.indexOf(book);
+        toggleButton.addEventListener('click', (e) => {
+            let index = e.target.dataset.indexNumber;
+            let selectedBook = myLibrary[index];
+            selectedBook.read = !selectedBook.read;
+            console.log(selectedBook);
+        });        
+
+        toggleButton.innerText = "Toggle read";
+        innerContent.appendChild(toggleButton);
 
         content.appendChild(innerContent);
         bookListDiv.appendChild(content);
