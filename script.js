@@ -1,33 +1,34 @@
-let myLibrary = [];
-
 function Book(title, author, pages, read) {
     this.title = title
     this.author = author
     this.pages = pages
     this.read = read
-    this.info = function() {
-        return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? "has read" : "not read"}`
-    }
+}
+
+function describeBook(book) {
+    return `${book.title} by ${book.author}, ${book.pages} pages, ${book.read ? "has read" : "not read"}`
 }
 
 function addBookToLibrary(book) {
     myLibrary.push(book);
+
+    populateStorage();
 }
 
 function removeBookFromLibraryWithIndex(index) {
     myLibrary.splice(index, 1);
-    console.log("delete run!");
+    
+    populateStorage();
 }
 
 function displayBooks() {
-    console.log(myLibrary);
 
     let bookListDiv = document.querySelector('#book-list');
     bookListDiv.innerHTML = "";
 
     myLibrary.forEach(book => {
 
-        console.log(book.info());
+        console.log(book);
 
         const content = document.createElement('div');
         content.classList.add('card');
@@ -44,7 +45,7 @@ function displayBooks() {
 
         const paragraph = document.createElement('p');
         paragraph.classList.add('card-text');
-        paragraph.textContent = book.info();
+        paragraph.textContent = describeBook(book);
         innerContent.appendChild(paragraph);
 
         const button = document.createElement('button');
@@ -73,7 +74,6 @@ function displayBooks() {
             let index = e.target.dataset.indexNumber;
             let selectedBook = myLibrary[index];
             selectedBook.read = !selectedBook.read;
-            console.log(selectedBook);
         });        
 
         toggleButton.innerText = "Toggle read";
@@ -84,28 +84,42 @@ function displayBooks() {
     });
 }
 
-let book1 = new Book("Game of Thrones", "G.R.R.Martin", 942, true);
-addBookToLibrary(book1);
+function populateStorage() {
+    console.log("SAVING LIBRARY: " + myLibrary);
+    localStorage.setItem('library', JSON.stringify(myLibrary));
+}
 
-let book2 = new Book("The Lord of the Rings", "J.R.R. Tolkien", 741, false);
-addBookToLibrary(book2);
+let myLibrary = [];
 
-let book3 = new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling", 476, false);
-addBookToLibrary(book3);
-
-let book4 = new Book("The adventures of Pinocchio", "Carlo Collodi", 355, true);
-addBookToLibrary(book4);
+ if(!localStorage.getItem('library')) {
+    let book1 = new Book("Game of Thrones", "G.R.R.Martin", 942, true);
+    addBookToLibrary(book1);
+    
+    let book2 = new Book("The Lord of the Rings", "J.R.R. Tolkien", 741, false);
+    addBookToLibrary(book2);
+    
+    let book3 = new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling", 476, false);
+    addBookToLibrary(book3);
+    
+    let book4 = new Book("The adventures of Pinocchio", "Carlo Collodi", 355, true);
+    addBookToLibrary(book4);
+    
+  } else {
+    console.log(localStorage);
+    myLibrary = JSON.parse(localStorage.getItem("library"))
+  }
 
 displayBooks();
 
 
 $(document).ready(function(){
 
-    $('#exampleModal').on('click','#saveBook', function (e) {
+    $('#createBookForm').on('click','#saveBook', function (e) {
+        console.log("IS THIS RUNNING?")
        let newBook = new Book($('#title').val(), $('#author').val(), $('#pages').val(), $('#hasRead').val());
        addBookToLibrary(newBook);
        displayBooks();
 
-       $('#exampleModal').hide();
+       $('#createBookForm').hide();
     });
 })
