@@ -14,8 +14,16 @@ function addBookToLibrary(book) {
     myLibrary.push(book);
 }
 
+function removeBookFromLibraryWithIndex(index) {
+    myLibrary.splice(index, 1);
+    console.log("delete run!");
+}
+
 function displayBooks() {
+    console.log(myLibrary);
+
     let bookListDiv = document.querySelector('#book-list');
+    bookListDiv.innerHTML = "";
 
     myLibrary.forEach(book => {
 
@@ -25,7 +33,6 @@ function displayBooks() {
         content.classList.add('card');
         content.classList.add('bg-info');
         content.classList.add('text-white');
-        content.style.width = '18rem';
 
         const innerContent = document.createElement('div');
         innerContent.classList.add('card-body');
@@ -43,6 +50,17 @@ function displayBooks() {
         const button = document.createElement('button');
         button.classList.add('btn');
         button.classList.add('btn-light');
+        button.classList.add('delete-button');
+
+        button.dataset.indexNumber = myLibrary.indexOf(book);
+        button.addEventListener('click', (e) => {
+            let index = e.target.dataset.indexNumber;
+            console.log(index);
+            removeBookFromLibraryWithIndex(index);
+            displayBooks();    
+        });        
+
+
         button.innerText = "Delete Book";
         innerContent.appendChild(button);
 
@@ -69,9 +87,10 @@ displayBooks();
 $(document).ready(function(){
 
     $('#exampleModal').on('click','#saveBook', function (e) {
-       console.log($('#recipient-name').val());
-       console.log("CLICK");
-//console.log(e);
-});
+       let newBook = new Book($('#title').val(), $('#author').val(), $('#pages').val(), $('#hasRead').val());
+       addBookToLibrary(newBook);
+       displayBooks();
 
+       $('#exampleModal').hide();
+    });
 })

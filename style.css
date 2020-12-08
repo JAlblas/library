@@ -4,10 +4,16 @@ body {
 
 #container {
     width: 1280px;
-    height: 100%;
     margin: 0 auto;
     padding: 25px;
     background-color: #f8f9fa;
+}
+
+#book-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    row-gap: 25px;
 }
 
 .card-body {
