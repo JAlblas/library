@@ -66,3 +66,12 @@ addBookToLibrary(book4);
 displayBooks();
 
 
+$(document).ready(function(){
+
+    $('#exampleModal').on('click','#saveBook', function (e) {
+       console.log($('#recipient-name').val());
+       console.log("CLICK");
+//console.log(e);
+});
+
+})

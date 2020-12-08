@@ -1,5 +1,5 @@
 body {
-    background-color: #17a2b8;
+    background-color: #88b6bd;
 }
 
 #container {
@@ -8,4 +8,14 @@ body {
     margin: 0 auto;
     padding: 25px;
     background-color: #f8f9fa;
+}
+
+.card-body {
+    min-height: 225;
+}
+
+.card-body > button {
+    position: absolute;
+    right: 15;
+    bottom: 15;
 }
