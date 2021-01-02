@@ -63,8 +63,8 @@ class Library {
             button.addEventListener('click', (e) => {
                 let index = e.target.dataset.indexNumber;
                 console.log(index);
-                removeBookFromLibraryWithIndex(index);
-                displayBooks();    
+                this.removeBookFromLibraryWithIndex(index);
+                this.displayBooks();    
             });        
     
             button.innerText = "Delete Book";
@@ -118,7 +118,11 @@ library.displayBooks();
 
 $(document).ready(function(){
 
-    $('#createBookForm').on('click','#saveBook', function (e) {
+    const form = document.getElementById('create-book-form');
+    form.addEventListener("submit", function (e) {
+        console.log("submit");
+        //e.preventDefault();
+
        let newBook = new Book($('#title').val(), $('#author').val(), $('#pages').val(), $('#hasRead').val());
        library.addBookToLibrary(newBook);
        library.displayBooks();
