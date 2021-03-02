@@ -25,17 +25,10 @@ class Library {
     }
 
     displayBooks() {
-
         let bookListDiv = document.querySelector('#book-list');
         bookListDiv.innerHTML = "";
-        
-        console.log(this.books);
 
-        this.books.forEach(book => {
-
-            console.log(book);
-            console.log(typeof book)
-    
+        this.books.forEach(book => {    
             const content = document.createElement('div');
             content.classList.add('card');
             content.classList.add('bg-info');
@@ -62,7 +55,6 @@ class Library {
             button.dataset.indexNumber = this.books.indexOf(book);
             button.addEventListener('click', (e) => {
                 let index = e.target.dataset.indexNumber;
-                console.log(index);
                 this.removeBookFromLibraryWithIndex(index);
                 this.displayBooks();    
             });        
@@ -80,6 +72,7 @@ class Library {
                 let index = e.target.dataset.indexNumber;
                 let selectedBook = this.books[index];
                 selectedBook.read = !selectedBook.read;
+                this.displayBooks();
             });        
     
             toggleButton.innerText = "Toggle read";
@@ -120,10 +113,10 @@ $(document).ready(function(){
 
     const form = document.getElementById('create-book-form');
     form.addEventListener("submit", function (e) {
-        console.log("submit");
-        //e.preventDefault();
+        e.preventDefault();
 
-       let newBook = new Book($('#title').val(), $('#author').val(), $('#pages').val(), $('#hasRead').val());
+       let hasRead = $('#hasRead').is(":checked") === 'on' ? true : false;
+       let newBook = new Book($('#title').val(), $('#author').val(), $('#pages').val(), hasRead);
        library.addBookToLibrary(newBook);
        library.displayBooks();
 
